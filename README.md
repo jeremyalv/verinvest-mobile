@@ -10,7 +10,7 @@
 
 
 ## Link Aplikasi Heroku
-[Verinvest Web App](https://verinvest.herokuapp.com/)
+[Verinvest Web App](https://verinvest.up.railway.app/)
 
 [Verinvest Mobile App - Coming Soon!](#)
 
