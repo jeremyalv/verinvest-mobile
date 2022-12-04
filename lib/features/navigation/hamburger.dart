@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import '../home/home.dart';
+import '../profile/profile.dart';
+import '../collections/collections.dart';
+import '../forum_post/forum_post.dart';
+import '../education_post/education_post.dart';
 
 class Hamburger extends StatelessWidget {
   const Hamburger({super.key});
@@ -27,12 +31,25 @@ class Hamburger extends StatelessWidget {
           const SizedBox(height: 5),
           ListTile(
             // Collections
+            title: const Text("Profile"),
+            onTap: () {
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Profile(
+                          // Replace with widget
+                          )));
+            },
+          ),
+          const SizedBox(height: 5),
+          ListTile(
+            // Collections
             title: const Text("Collections"),
             onTap: () {
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => Home(
+                      builder: (context) => Collections(
                           // Replace with widget
                           )));
             },
@@ -40,12 +57,25 @@ class Hamburger extends StatelessWidget {
           const SizedBox(height: 5),
           ListTile(
             // About
-            title: const Text("About"),
+            title: const Text("Forum Post"),
             onTap: () {
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => Home(
+                      builder: (context) => ForumPost(
+                          // Replace with widget
+                          )));
+            },
+          ),
+          const SizedBox(height: 5),
+          ListTile(
+            // About
+            title: const Text("Edukasi Post"),
+            onTap: () {
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => EducationPost(
                           // Replace with widget
                           )));
             },
