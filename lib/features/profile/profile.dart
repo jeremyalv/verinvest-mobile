@@ -1,7 +1,9 @@
 // TEMPLATE ONLY
 
 import 'package:flutter/material.dart';
-import '../home/navbar.dart';
+import '../navigation/bottom_navbar.dart';
+import '../navigation/hamburger.dart';
+import '../navigation/verinvest_appbar.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});
@@ -9,6 +11,8 @@ class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: VerinvestAppbar(),
+      drawer: Hamburger(),
       body: SafeArea(
         child: Column(
           children: [
