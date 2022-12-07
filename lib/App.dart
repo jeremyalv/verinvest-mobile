@@ -16,7 +16,7 @@ class App extends StatelessWidget {
         child: MaterialApp(
           title: "Verinvest",
           theme: ThemeData(
-            primarySwatch: Colors.grey,
+            primarySwatch: Colors.green,
           ),
           home: Home(),
         ));

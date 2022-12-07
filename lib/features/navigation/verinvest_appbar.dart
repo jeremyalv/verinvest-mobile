@@ -16,21 +16,25 @@ class VerinvestAppbar extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(
+          color: Colors.green,
+        ),
         title:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-      Image.asset('assets/images/verinvest_logo-1.png', width: 140),
-      SizedBox(
-        width: 40,
-        child: TextButton(
-          onPressed: () {
-            Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => Profile()));
-          },
-          child: Image.asset(
-            'assets/images/user.png',
+          Image.asset('assets/images/verinvest_logo-1.png', width: 140),
+          SizedBox(
+            width: 40,
+            child: TextButton(
+              onPressed: () {
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => Profile()));
+              },
+              child: Image.asset(
+                'assets/images/user.png',
+              ),
+            ),
           ),
-        ),
-      ),
-    ]));
+        ]));
   }
 }
