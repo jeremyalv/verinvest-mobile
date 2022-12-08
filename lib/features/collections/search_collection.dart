@@ -6,7 +6,9 @@ import '../navigation/hamburger.dart';
 
 class SearchCollection extends StatefulWidget {
   final Function queryHandler;
-  const SearchCollection({super.key, required this.queryHandler});
+  final double itemWidth;
+  const SearchCollection(
+      {super.key, required this.queryHandler, required this.itemWidth});
 
   @override
   State<SearchCollection> createState() => _SearchCollectionState();
@@ -37,7 +39,7 @@ class _SearchCollectionState extends State<SearchCollection> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            width: 300,
+            width: widget.itemWidth,
             height: 50,
             child: TextField(
               controller: _queryController,

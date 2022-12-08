@@ -10,7 +10,7 @@ class PostCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
       // width: double.maxFinite,
       child: Card(
         elevation: 4.0,

@@ -65,70 +65,74 @@ class _CollectionsState extends State<Collections> {
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-            child: Center(
+            child: Expanded(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
+                // mainAxisAlignment: MainAxisAlignment.start,
+                // crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Center(
-                    child: Flexible(
-                      child: RichText(
-                        textAlign: TextAlign.center,
-                        text: const TextSpan(
-                            text: "Find ",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black,
-                                fontSize: 24),
-                            children: <TextSpan>[
-                              TextSpan(
-                                  text: "Trending ",
-                                  style: TextStyle(
-                                      color: Colors.green,
-                                      fontWeight: FontWeight.w400)),
-                              TextSpan(text: "Investment Discussions"),
-                            ]),
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 24),
+                      child: Flexible(
+                        child: RichText(
+                          textAlign: TextAlign.center,
+                          text: const TextSpan(
+                              text: "Find ",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black,
+                                  fontSize: 24),
+                              children: <TextSpan>[
+                                TextSpan(
+                                    text: "Trending ",
+                                    style: TextStyle(
+                                        color: Colors.green,
+                                        fontWeight: FontWeight.w400)),
+                                TextSpan(text: "Investment Discussions"),
+                              ]),
+                        ),
                       ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    padding: EdgeInsets.only(top: 12),
                     child: Text(
                       "$posts_count posts available",
                       style: TextStyle(
                           color: Colors.grey, fontWeight: FontWeight.w500),
                     ),
                   ),
+                  SizedBox(height: 12),
                   SearchCollection(
                     queryHandler: _queryHandler,
+                    itemWidth: 320,
                   ),
-                  SizedBox(height: 24),
+                  SizedBox(height: 12),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          MenuOption(
-                            text: "Discussion Forums",
-                            optionIcon: Icon(
-                              Icons.forum,
-                              size: 28,
-                              color: Colors.grey[400],
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 0),
+                        // padding: EdgeInsets.all(0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            MenuOption(
+                              text: "Forums",
+                              iconData: Icons.forum,
+                              selected: true,
                             ),
-                          ),
-                          SizedBox(width: 8),
-                          MenuOption(
-                            text: "Education Articles",
-                            optionIcon: Icon(
-                              Icons.school,
-                              size: 28,
-                              color: Colors.grey[400],
+                            SizedBox(width: 12),
+                            MenuOption(
+                              text: "Articles",
+                              iconData: Icons.school,
+                              selected: false,
                             ),
-                          ),
-                          SizedBox(width: 8),
-                        ],
+                          ],
+                        ),
                       ),
+                      SizedBox(height: 16),
                       Column(
                         children: [
                           PostCard(post: forumDummy),
