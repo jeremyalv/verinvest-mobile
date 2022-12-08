@@ -11,11 +11,13 @@ class MenuOption extends StatelessWidget {
       required this.iconData,
       required this.selected});
 
+  void onClick() {}
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        width: double.infinity,
+        width: 150,
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
         decoration: BoxDecoration(
             color: selected ? Colors.green : Colors.grey[200],

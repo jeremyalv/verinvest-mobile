@@ -18,8 +18,18 @@ class Collections extends StatefulWidget {
 }
 
 class _CollectionsState extends State<Collections> {
-  int posts_count = 99;
-  String _query = "";
+  late int posts_count = 99;
+  late String _query;
+  late bool forumActive;
+  late bool educationActive;
+
+  @override
+  void initState() {
+    _query = "";
+    forumActive = false;
+    educationActive = false;
+    super.initState();
+  }
 
   void _queryHandler(String query) {
     setState(() {
@@ -27,10 +37,16 @@ class _CollectionsState extends State<Collections> {
     });
   }
 
-  @override
-  void initState() {
-    _query = "";
-    super.initState();
+  void toggleForumFilter() {
+    setState(() {
+      forumActive = !forumActive;
+    });
+  }
+
+  void toggleEducationFilter() {
+    setState(() {
+      educationActive = !educationActive;
+    });
   }
 
   Post forumDummy = Post(
@@ -39,7 +55,8 @@ class _CollectionsState extends State<Collections> {
       author: "Silverman Sachs",
       dateCreated: DateTime.now(),
       title: "Why \$GOTO is crashing",
-      content: "Here's 3 reasons why I think \$GOTO is crashing!",
+      content:
+          "Here's 3 reasons why I think \$GOTO is crashing! Here's 3 reasons why I think \$GOTO is crashing! Here's 3 reasons why I think \$GOTO is crashing!",
       upvotes: 3,
       viewers: 50,
       commentsCount: 0);
@@ -63,6 +80,7 @@ class _CollectionsState extends State<Collections> {
       drawer: const Hamburger(),
       body: SafeArea(
         child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             child: Expanded(
@@ -94,20 +112,21 @@ class _CollectionsState extends State<Collections> {
                       ),
                     ),
                   ),
+                  Text("Query: $_query"),
                   Padding(
-                    padding: EdgeInsets.only(top: 12),
+                    padding: const EdgeInsets.only(top: 12),
                     child: Text(
                       "$posts_count posts available",
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: Colors.grey, fontWeight: FontWeight.w500),
                     ),
                   ),
-                  SizedBox(height: 12),
+                  const SizedBox(height: 12),
                   SearchCollection(
                     queryHandler: _queryHandler,
                     itemWidth: 320,
                   ),
-                  SizedBox(height: 12),
+                  const SizedBox(height: 12),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -116,23 +135,29 @@ class _CollectionsState extends State<Collections> {
                             horizontal: 16, vertical: 0),
                         // padding: EdgeInsets.all(0),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            MenuOption(
-                              text: "Forums",
-                              iconData: Icons.forum,
-                              selected: true,
+                            GestureDetector(
+                              onTap: toggleForumFilter,
+                              child: MenuOption(
+                                text: "Forums",
+                                iconData: Icons.forum,
+                                selected: forumActive,
+                              ),
                             ),
-                            SizedBox(width: 12),
-                            MenuOption(
-                              text: "Articles",
-                              iconData: Icons.school,
-                              selected: false,
+                            const SizedBox(width: 12),
+                            GestureDetector(
+                              onTap: toggleEducationFilter,
+                              child: MenuOption(
+                                text: "Articles",
+                                iconData: Icons.school,
+                                selected: educationActive,
+                              ),
                             ),
                           ],
                         ),
                       ),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                       Column(
                         children: [
                           PostCard(post: forumDummy),

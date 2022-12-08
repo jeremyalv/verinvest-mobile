@@ -18,16 +18,12 @@ class _SearchCollectionState extends State<SearchCollection> {
   final _formKey = GlobalKey<FormState>();
   final _queryController = TextEditingController();
 
-  // Create default value for form field
-  String _query = "";
-
   void clearQueryBox() {
     _queryController.clear();
   }
 
   @override
   void initState() {
-    _query = "";
     super.initState();
   }
 
@@ -63,25 +59,16 @@ class _SearchCollectionState extends State<SearchCollection> {
                   padding: EdgeInsets.only(left: 12, right: 8),
                   child: Icon(
                     Icons.search,
-                    color: Colors.grey[400],
+                    color: Colors.grey[500],
                     size: 24,
                   ),
                 ),
               ),
               onChanged: (text) {
-                setState(() {
-                  _query = text;
-                });
+                widget.queryHandler(text);
               },
             ),
           ),
-          // TextButton(
-          //     onPressed: () {
-          //       widget.queryHandler(_query);
-          //       clearQueryBox();
-          //     },
-          //     child: Container(
-          //         height: 40, width: 40, child: const Icon(Icons.search))),
         ],
       ),
     );
