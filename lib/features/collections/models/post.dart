@@ -14,6 +14,9 @@ class Post {
   late int viewers;
   late int commentsCount;
 
+  // TODO convert to List<Comment> later
+  late List<String> comments;
+
   Post({
     required this.pk,
     required this.postType,

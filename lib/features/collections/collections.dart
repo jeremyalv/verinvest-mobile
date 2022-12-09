@@ -18,6 +18,9 @@ class Collections extends StatefulWidget {
 }
 
 class _CollectionsState extends State<Collections> {
+  ScrollController scrollController = ScrollController();
+  bool showBackToTop = false;
+
   late int posts_count = 99;
   late String _query;
   late bool forumActive;
@@ -28,6 +31,23 @@ class _CollectionsState extends State<Collections> {
     _query = "";
     forumActive = false;
     educationActive = false;
+
+    // Add listener to scroll to top button
+    scrollController.addListener(() {
+      // Back to top button will show on scroll offset 20.0
+      double showOffset = 20.0;
+
+      if (scrollController.offset > showOffset) {
+        setState(() {
+          showBackToTop = true;
+        });
+      } else {
+        setState(() {
+          showBackToTop = false;
+        });
+      }
+    });
+
     super.initState();
   }
 
@@ -54,9 +74,10 @@ class _CollectionsState extends State<Collections> {
       postType: "forum",
       author: "Silverman Sachs",
       dateCreated: DateTime.now(),
-      title: "Why \$GOTO is crashing",
+      title:
+          "Why \$GOTO is crashing, and Indonesia's tech sector is up for a wild ride in 2023. Lorem ipsum dolor sit amet, lorem ipsum dolor sit amet.",
       content:
-          "Here's 3 reasons why I think \$GOTO is crashing! Here's 3 reasons why I think \$GOTO is crashing! Here's 3 reasons why I think \$GOTO is crashing!",
+          "Here's 3 reasons why I think \$GOTO is crashing! Here's 3 reasons why I think \$GOTO is crashing! Here's 3 reasons why I think \$GOTO is crashing! Here's 3 reasons why I think \$GOTO is crashing! Here's 3 reasons why I think \$GOTO is crashing! Here's 3 reasons why I think \$GOTO is crashing! Here's 3 reasons why I think \$GOTO is crashing! Here's 3 reasons why I think \$GOTO is crashing! Here's 3 reasons why I think \$GOTO is crashing! Here's 3 reasons why I think \$GOTO is crashing! Here's 3 reasons why I think \$GOTO is crashing! Here's 3 reasons why I think \$GOTO is crashing! Here's 3 reasons why I think \$GOTO is crashing! Here's 3 reasons why I think \$GOTO is crashing! Here's 3 reasons why I think \$GOTO is crashing! Here's 3 reasons why I think \$GOTO is crashing! Here's 3 reasons why I think \$GOTO is crashing!",
       upvotes: 3,
       viewers: 50,
       commentsCount: 0);
@@ -67,7 +88,8 @@ class _CollectionsState extends State<Collections> {
     author: "Debit Suisse",
     dateCreated: DateTime.now(),
     title: "Why \$BUKA is the best stock!",
-    content: "Forget \$GOTO, buy your \$BUKA stocks instead!",
+    content:
+        "Forget \$GOTO, buy your \$BUKA stocks instead! Forget \$GOTO, buy your \$BUKA stocks instead! Forget \$GOTO, buy your \$BUKA stocks instead! Forget \$GOTO, buy your \$BUKA stocks instead! Forget \$GOTO, buy your \$BUKA stocks instead! Forget \$GOTO, buy your \$BUKA stocks instead! Forget \$GOTO, buy your \$BUKA stocks instead! Forget \$GOTO, buy your \$BUKA stocks instead! Forget \$GOTO, buy your \$BUKA stocks instead! Forget \$GOTO, buy your \$BUKA stocks instead! Forget \$GOTO, buy your \$BUKA stocks instead!",
     upvotes: 90,
     viewers: 5200,
     commentsCount: 13,
@@ -76,10 +98,12 @@ class _CollectionsState extends State<Collections> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: const VerinvestAppbar(),
       drawer: const Hamburger(),
       body: SafeArea(
         child: SingleChildScrollView(
+          controller: scrollController,
           physics: const BouncingScrollPhysics(),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -97,22 +121,26 @@ class _CollectionsState extends State<Collections> {
                           text: const TextSpan(
                               text: "Find ",
                               style: TextStyle(
-                                  fontWeight: FontWeight.w500,
+                                  fontWeight: FontWeight.w400,
                                   color: Colors.black,
-                                  fontSize: 24),
+                                  fontSize: 30),
                               children: <TextSpan>[
                                 TextSpan(
                                     text: "Trending ",
                                     style: TextStyle(
                                         color: Colors.green,
-                                        fontWeight: FontWeight.w400)),
-                                TextSpan(text: "Investment Discussions"),
+                                        fontWeight: FontWeight.bold)),
+                                TextSpan(
+                                    text: "Investment Discussions",
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w400)),
                               ]),
                         ),
                       ),
                     ),
                   ),
-                  Text("Query: $_query"),
+                  // TODO delete
+                  Text("Query input: $_query"),
                   Padding(
                     padding: const EdgeInsets.only(top: 12),
                     child: Text(
@@ -177,6 +205,22 @@ class _CollectionsState extends State<Collections> {
                 ],
               ),
             ),
+          ),
+        ),
+      ),
+      floatingActionButton: AnimatedOpacity(
+        duration: const Duration(milliseconds: 500),
+        opacity: showBackToTop ? 1.0 : 0.0,
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 30),
+          child: FloatingActionButton(
+            onPressed: () {
+              scrollController.animateTo(0,
+                  duration: const Duration(milliseconds: 250),
+                  curve: Curves.fastOutSlowIn);
+            },
+            child: const Icon(Icons.arrow_upward),
+            backgroundColor: Colors.green,
           ),
         ),
       ),

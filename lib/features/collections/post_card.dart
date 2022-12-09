@@ -40,10 +40,48 @@ class PostCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(post.postType == "forum"
-                          ? "Forum Thread"
-                          : "Education Article"),
                       Text(DateFormat.yMMMEd().format(post.dateCreated)),
+                      Text("by ${post.author}"),
+                      SizedBox(height: 4),
+                      Row(
+                        children: [
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.remove_red_eye,
+                                size: 16,
+                                color: Colors.grey[500],
+                              ),
+                              const SizedBox(width: 2),
+                              Text("${post.viewers}"),
+                            ],
+                          ),
+                          const SizedBox(width: 4),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.thumb_up,
+                                size: 16,
+                                color: Colors.grey[500],
+                              ),
+                              const SizedBox(width: 2),
+                              Text("${post.upvotes}"),
+                            ],
+                          ),
+                          const SizedBox(width: 4),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.chat_rounded,
+                                size: 16,
+                                color: Colors.grey[500],
+                              ),
+                              const SizedBox(width: 2),
+                              Text("${post.commentsCount}"),
+                            ],
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),
@@ -73,17 +111,6 @@ class PostCard extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
               )
-              // Container(
-              //   padding: const EdgeInsets.all(16.0),
-              //   alignment: Alignment.centerLeft,
-              //   child: post.postType == 'forum'
-              //       ? Text("You spent Rp${budgets.amount.toString()}",
-              //           style: TextStyle(color: Colors.red[700]))
-              //       : Text(
-              //           "You received Rp${budgets.amount.toString()}",
-              //           style: TextStyle(color: Colors.green[700]),
-              //         ),
-              // ),
             ],
           ),
         ),
