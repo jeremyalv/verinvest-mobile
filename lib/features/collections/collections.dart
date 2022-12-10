@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:verinvest_mobile/features/collections/menu_option.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+
+import '../../core/theme/base_colors.dart';
 import '../navigation/verinvest_appbar.dart';
 import '../navigation/hamburger.dart';
 import '../navigation/bottom_navbar.dart';
+import '../profile/profile.dart';
 
 import './models/post.dart';
-import '../profile/profile.dart';
 import './post_card.dart';
 import './search_collection.dart';
 import './menu_option.dart';
+import './create_post.dart';
 
 class Collections extends StatefulWidget {
   const Collections({super.key});
@@ -118,19 +121,19 @@ class _CollectionsState extends State<Collections> {
                       child: Flexible(
                         child: RichText(
                           textAlign: TextAlign.center,
-                          text: const TextSpan(
+                          text: TextSpan(
                               text: "Find ",
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontWeight: FontWeight.w400,
-                                  color: Colors.black,
+                                  color: BaseColors.black,
                                   fontSize: 30),
                               children: <TextSpan>[
                                 TextSpan(
                                     text: "Trending ",
                                     style: TextStyle(
-                                        color: Colors.green,
+                                        color: BaseColors.green[500],
                                         fontWeight: FontWeight.bold)),
-                                TextSpan(
+                                const TextSpan(
                                     text: "Investment Discussions",
                                     style:
                                         TextStyle(fontWeight: FontWeight.w400)),
@@ -208,21 +211,37 @@ class _CollectionsState extends State<Collections> {
           ),
         ),
       ),
-      floatingActionButton: AnimatedOpacity(
-        duration: const Duration(milliseconds: 500),
-        opacity: showBackToTop ? 1.0 : 0.0,
-        child: Padding(
-          padding: const EdgeInsets.only(bottom: 30),
-          child: FloatingActionButton(
-            onPressed: () {
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: SpeedDial(
+        icon: Icons.menu,
+        backgroundColor: BaseColors.green[500],
+        children: [
+          SpeedDialChild(
+            child: const Icon(
+              Icons.create,
+              color: Colors.white,
+            ),
+            label: "Create Post",
+            backgroundColor: BaseColors.green[500],
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => CreatePost()));
+            },
+          ),
+          SpeedDialChild(
+            label: "Back to top",
+            backgroundColor: BaseColors.green[500],
+            child: const Icon(
+              Icons.arrow_upward,
+              color: Colors.white,
+            ),
+            onTap: () {
               scrollController.animateTo(0,
                   duration: const Duration(milliseconds: 250),
                   curve: Curves.fastOutSlowIn);
             },
-            child: const Icon(Icons.arrow_upward),
-            backgroundColor: Colors.green,
-          ),
-        ),
+          )
+        ],
       ),
     );
   }
