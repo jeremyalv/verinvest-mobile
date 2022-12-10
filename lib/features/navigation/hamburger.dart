@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:verinvest_mobile/features/Auth/login.dart';
+import 'package:verinvest_mobile/features/Auth/register.dart';
 import '../home/home.dart';
 import '../profile/profile.dart';
 import '../collections/collections.dart';
@@ -76,6 +78,19 @@ class Hamburger extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                       builder: (context) => EducationPost(
+                          // Replace with widget
+                          )));
+            },
+          ),
+          const SizedBox(height: 5),
+          ListTile(
+            // About
+            title: const Text("Register"),
+            onTap: () {
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => RegisterPage(
                           // Replace with widget
                           )));
             },
