@@ -166,7 +166,6 @@ class _PostDetailState extends State<PostDetail> {
                           child: ListView.builder(
                               physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
-                              // primary: false,
                               itemCount: 30,
                               itemBuilder: (context, index) => Padding(
                                     padding: const EdgeInsets.symmetric(
