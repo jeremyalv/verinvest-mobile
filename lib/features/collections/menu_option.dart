@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:verinvest_mobile/core/theme/base_colors.dart';
 
 class MenuOption extends StatelessWidget {
   final String text;
@@ -20,14 +21,14 @@ class MenuOption extends StatelessWidget {
         width: 150,
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
         decoration: BoxDecoration(
-            color: selected ? Colors.green : Colors.grey[200],
+            color: selected ? BaseColors.green[500] : Colors.grey[200],
             borderRadius: const BorderRadius.all(
               Radius.circular(20),
             ),
             boxShadow: [
               BoxShadow(
                 color: selected
-                    ? Colors.green.withOpacity(0.2)
+                    ? BaseColors.green[500]!.withOpacity(0.2)
                     : Colors.transparent,
                 spreadRadius: 4,
                 blurRadius: 4,
