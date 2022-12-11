@@ -11,7 +11,7 @@ class BaseColors {
     _green,
     <int, Color>{
       300: Color(0xFF98D0AC),
-      500: Color(_green),
+      500: Color(0xFF27B688),
     },
   );
 

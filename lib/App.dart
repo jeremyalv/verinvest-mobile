@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import './features/home/home.dart';
-import './features/Auth/login.dart';
-import './features/Auth/register.dart';
+import 'features/Auth/login.dart';
+import 'features/Auth/register.dart';
 import '../../core/services/auth_request.dart';
 
 class App extends StatelessWidget {
