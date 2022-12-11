@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'models/post.dart';
-import '../navigation/verinvest_appbar.dart';
-import '../navigation/hamburger.dart';
+import '../../core/theme/base_colors.dart';
 
 class CreatePost extends StatefulWidget {
   const CreatePost({super.key});
@@ -15,13 +14,13 @@ class _CreatePostState extends State<CreatePost> {
 
   late String _type;
   late String _title;
-  late String _description;
+  late String _content;
 
   @override
   void initState() {
     _type = "";
     _title = "";
-    _description = "";
+    _content = "";
 
     super.initState();
   }
@@ -56,7 +55,7 @@ class _CreatePostState extends State<CreatePost> {
                             borderRadius: BorderRadius.all(Radius.circular(15)),
                           ),
                           child: Row(
-                            children: [
+                            children: const [
                               Icon(
                                 Icons.keyboard_arrow_left,
                                 color: Colors.black,
@@ -92,7 +91,7 @@ class _CreatePostState extends State<CreatePost> {
                     children: [
                       Container(
                         padding: const EdgeInsets.only(bottom: 24),
-                        child: const Text("Create Post",
+                        child: const Text("Make a new post",
                             style: TextStyle(
                                 fontSize: 24, fontWeight: FontWeight.normal)),
                       ),
@@ -229,6 +228,74 @@ class _CreatePostState extends State<CreatePost> {
                             },
                           ),
                         ],
+                      ),
+                      const SizedBox(height: 32),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 12, bottom: 4),
+                        child: TextButton(
+                          style: ButtonStyle(
+                              padding: MaterialStateProperty.all<EdgeInsets>(
+                                  const EdgeInsets.symmetric(
+                                      horizontal: 24, vertical: 16)),
+                              backgroundColor: MaterialStateProperty.all(
+                                  BaseColors.green[500])),
+                          onPressed: () {
+                            if (_formKey.currentState!.validate() &&
+                                _type != null) {
+                              Post post = Post(
+                                title: _title,
+                                content: _content,
+                                postType: _type,
+                                dateCreated: DateTime.now(),
+                                // TODO update when auth finishes
+                                authorUsername: "test_user",
+                              );
+
+                              setState(() {});
+
+                              // TODO Send data to web service
+
+                              // Reset form data
+                              _formKey.currentState?.reset();
+
+                              // Show message dialog
+                              showDialog(
+                                context: context,
+                                builder: (context) => Dialog(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  elevation: 15,
+                                  child: ListView(
+                                    padding: const EdgeInsets.only(
+                                        top: 30, bottom: 30),
+                                    shrinkWrap: true,
+                                    children: <Widget>[
+                                      const Center(
+                                          child: Padding(
+                                        padding: EdgeInsets.only(bottom: 8.0),
+                                        child: Text("Created new post!"),
+                                      )),
+                                      const SizedBox(height: 10),
+                                      TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Text(
+                                            "Back",
+                                            style: TextStyle(fontSize: 16),
+                                          )),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            }
+                          },
+                          child: const Text(
+                            "Create Post",
+                            style: TextStyle(color: Colors.white, fontSize: 18),
+                          ),
+                        ),
                       ),
                     ],
                   ),
