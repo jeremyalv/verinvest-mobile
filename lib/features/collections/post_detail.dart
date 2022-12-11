@@ -102,28 +102,23 @@ class _PostDetailState extends State<PostDetail> {
                     padding: const EdgeInsets.only(
                         top: 36, bottom: 24, left: 24, right: 24),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Hero(
-                          tag: "Hero",
-                          child: Column(
-                            children: [
-                              Text(
-                                // TODO update
-                                widget.post.title,
-                                style: const TextStyle(
-                                  fontSize: 20,
-                                ),
-                              ),
-                            ],
+                        Text(
+                          widget.post.title,
+                          textAlign: TextAlign.start,
+                          style: const TextStyle(
+                            fontSize: 22,
                           ),
                         ),
-                        const SizedBox(height: 16),
+                        const SizedBox(height: 12),
                         Container(
                           alignment: Alignment.bottomLeft,
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                widget.post.author,
+                                widget.post.authorUsername,
                                 textAlign: TextAlign.start,
                                 style: TextStyle(
                                   fontSize: 14,

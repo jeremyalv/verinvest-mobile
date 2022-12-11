@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
+import '../../core//services/collections_api.dart';
 import '../../core/theme/base_colors.dart';
 import '../navigation/verinvest_appbar.dart';
 import '../navigation/hamburger.dart';
@@ -21,10 +22,13 @@ class Collections extends StatefulWidget {
 }
 
 class _CollectionsState extends State<Collections> {
+  late CollectionsAPI _collectionsAPI = CollectionsAPI();
+  late Future<List<Post>> _collections = _collectionsAPI.fetchPosts();
+
   ScrollController scrollController = ScrollController();
   bool showBackToTop = false;
 
-  late int posts_count = 99;
+  late int postsCount = 0;
   late String _query;
   late bool forumActive;
   late bool educationActive;
@@ -51,7 +55,20 @@ class _CollectionsState extends State<Collections> {
       }
     });
 
+    // Init posts count
+    _getPostsCount().then((value) {
+      if (value != null) {
+        setState(() {
+          postsCount = value;
+        });
+      }
+    });
+
     super.initState();
+  }
+
+  Future<int> _getPostsCount() async {
+    return await _collections.then((value) => value.length);
   }
 
   void _queryHandler(String query) {
@@ -73,9 +90,9 @@ class _CollectionsState extends State<Collections> {
   }
 
   Post forumDummy = Post(
-      pk: 1,
+      // pk: 1,
       postType: "forum",
-      author: "Silverman Sachs",
+      authorUsername: "Silverman Sachs",
       dateCreated: DateTime.now(),
       title:
           "Why \$GOTO is crashing, and Indonesia's tech sector is up for a wild ride in 2023. Lorem ipsum dolor sit amet, lorem ipsum dolor sit amet.",
@@ -86,9 +103,9 @@ class _CollectionsState extends State<Collections> {
       commentsCount: 0);
 
   Post educationDummy = Post(
-    pk: 2,
+    // pk: 2,
     postType: "education",
-    author: "Debit Suisse",
+    authorUsername: "Debit Suisse",
     dateCreated: DateTime.now(),
     title: "Why \$BUKA is the best stock!",
     content:
@@ -147,7 +164,7 @@ class _CollectionsState extends State<Collections> {
                   Padding(
                     padding: const EdgeInsets.only(top: 12),
                     child: Text(
-                      "$posts_count posts available",
+                      "$postsCount posts available",
                       style: const TextStyle(
                           color: Colors.grey, fontWeight: FontWeight.w500),
                     ),
@@ -189,20 +206,38 @@ class _CollectionsState extends State<Collections> {
                         ),
                       ),
                       const SizedBox(height: 16),
-                      Column(
-                        children: [
-                          PostCard(post: forumDummy),
-                          PostCard(post: educationDummy),
-                          PostCard(post: forumDummy),
-                          PostCard(post: educationDummy),
-                          PostCard(post: forumDummy),
-                          PostCard(post: educationDummy),
-                          PostCard(post: forumDummy),
-                          PostCard(post: educationDummy),
-                          PostCard(post: forumDummy),
-                          PostCard(post: educationDummy),
-                        ],
-                      ),
+                      FutureBuilder(
+                          future: _collections,
+                          builder: (context, AsyncSnapshot snapshot) {
+                            if (snapshot.data == null) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            } else {
+                              if (!snapshot.hasData) {
+                                return Column(
+                                  children: const [
+                                    Text(
+                                      "Collections is empty",
+                                      style: TextStyle(fontSize: 20),
+                                    ),
+                                    SizedBox(
+                                      height: 8,
+                                    )
+                                  ],
+                                );
+                              } else {
+                                return ListView.builder(
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemCount: snapshot.data.length,
+                                    itemBuilder: (context, index) => PostCard(
+                                          post: snapshot.data[index],
+                                        ));
+                              }
+                            }
+                          }),
                     ],
                   )
                 ],
@@ -212,36 +247,54 @@ class _CollectionsState extends State<Collections> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      floatingActionButton: SpeedDial(
-        icon: Icons.menu,
-        backgroundColor: BaseColors.green[500],
-        children: [
-          SpeedDialChild(
-            child: const Icon(
-              Icons.create,
-              color: Colors.white,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 20),
+        child: SpeedDial(
+          childMargin: const EdgeInsets.symmetric(vertical: 20),
+          childPadding: const EdgeInsets.symmetric(vertical: 2),
+          icon: Icons.menu,
+          backgroundColor: BaseColors.green[500],
+          children: [
+            SpeedDialChild(
+              child: const Icon(
+                Icons.create,
+                color: Colors.white,
+              ),
+              label: "Create Post",
+              backgroundColor: BaseColors.green[500],
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => CreatePost()));
+              },
             ),
-            label: "Create Post",
-            backgroundColor: BaseColors.green[500],
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => CreatePost()));
-            },
-          ),
-          SpeedDialChild(
-            label: "Back to top",
-            backgroundColor: BaseColors.green[500],
-            child: const Icon(
-              Icons.arrow_upward,
-              color: Colors.white,
-            ),
-            onTap: () {
-              scrollController.animateTo(0,
-                  duration: const Duration(milliseconds: 250),
-                  curve: Curves.fastOutSlowIn);
-            },
-          )
-        ],
+            SpeedDialChild(
+                label: "Refresh page",
+                backgroundColor: BaseColors.green[500],
+                child: const Icon(
+                  Icons.refresh,
+                  color: Colors.white,
+                ),
+                onTap: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => super.widget));
+                }),
+            SpeedDialChild(
+              label: "Back to top",
+              backgroundColor: BaseColors.green[500],
+              child: const Icon(
+                Icons.arrow_upward,
+                color: Colors.white,
+              ),
+              onTap: () {
+                scrollController.animateTo(0,
+                    duration: const Duration(milliseconds: 250),
+                    curve: Curves.fastOutSlowIn);
+              },
+            )
+          ],
+        ),
       ),
     );
   }
