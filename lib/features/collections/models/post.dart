@@ -1,10 +1,10 @@
 import 'dart:convert';
+import 'package:intl/intl.dart';
 
 class Post {
-  late int pk;
   late String postType;
   // TODO change to Profile object later on
-  late String author;
+  late String authorUsername;
   late DateTime dateCreated;
 
   late String title;
@@ -18,9 +18,8 @@ class Post {
   late List<String> comments;
 
   Post({
-    required this.pk,
     required this.postType,
-    required this.author,
+    required this.authorUsername,
     required this.dateCreated,
     required this.title,
     required this.content,
@@ -31,28 +30,29 @@ class Post {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> postJson = <String, dynamic>{};
-    postJson["pk"] = pk;
-    postJson["post_type"] = postType;
-    postJson["author"] = author; // TODO make author to JSON
-    postJson["date_created"] = dateCreated;
-    postJson["title"] = title;
-    postJson["content"] = content;
-    postJson["upvotes"] = upvotes;
-    postJson["viewers"] = viewers;
-    postJson["comments_count"] = commentsCount;
+    // postJson["pk"] = pk;
+    postJson["fields"]["post_type"] = postType;
+    postJson["fields"]["author_username"] = authorUsername;
+    postJson["fields"]["date_created"] =
+        DateFormat('yyyy-MM-dd').format(dateCreated);
+    postJson["fields"]["title"] = title;
+    postJson["fields"]["content"] = content;
+    postJson["fields"]["upvotes"] = upvotes;
+    postJson["fields"]["viewers"] = viewers;
+    postJson["fields"]["comments_count"] = commentsCount;
 
     return postJson;
   }
 
   Post.fromJson(Map<String, dynamic> json) {
-    pk = json["pk"];
-    postType = json["post_type"];
-    author = json["author"];
-    dateCreated = json["date_created"];
-    title = json["title"];
-    content = json["content"];
-    upvotes = json["upvotes"];
-    viewers = json["viewers"];
-    commentsCount = json["comments_count"];
+    // pk = json["pk"];
+    postType = json["fields"]["post_type"];
+    authorUsername = json["fields"]["author_username"];
+    dateCreated = DateTime.parse(json["fields"]["date_created"]);
+    title = json["fields"]["title"];
+    content = json["fields"]["content"];
+    upvotes = json["fields"]["upvotes"];
+    viewers = json["fields"]["viewers"];
+    commentsCount = json["fields"]["comments_count"];
   }
 }

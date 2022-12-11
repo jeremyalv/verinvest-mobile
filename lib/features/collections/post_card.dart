@@ -41,7 +41,7 @@ class PostCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(DateFormat.yMMMEd().format(post.dateCreated)),
-                      Text("by ${post.author}"),
+                      Text("by ${post.authorUsername}"),
                       SizedBox(height: 4),
                       Row(
                         children: [
