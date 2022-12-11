@@ -38,7 +38,7 @@ class Hamburger extends StatelessWidget {
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => Profile(
+                      builder: (context) => ShowProfile(
                           // Replace with widget
                           )));
             },
