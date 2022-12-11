@@ -28,7 +28,7 @@ class VerinvestAppbar extends StatelessWidget with PreferredSizeWidget {
             child: TextButton(
               onPressed: () {
                 Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => Profile()));
+                    MaterialPageRoute(builder: (context) => ShowProfile()));
               },
               child: Image.asset(
                 'assets/images/user.png',
