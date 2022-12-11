@@ -54,7 +54,7 @@ class _ShowProfileState extends State<ShowProfile> {
 
   void first_name(String name) async {
     http.Response response =
-        await updateString("http://127.0.0.1:8000/profile/first_name/", name);
+        await updateString("https://verinvest.up.railway.app/profile/first_name/", name);
     print(response.body);
   }
 
