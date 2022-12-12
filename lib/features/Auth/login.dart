@@ -1,5 +1,4 @@
 import 'package:provider/provider.dart';
-//import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 //import 'package:pbp_django_auth/pbp_django_auth.dart';
@@ -49,7 +48,8 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
-        body: Container(
+        body: SafeArea(
+            child: Container(
           width: double.infinity,
           decoration: BoxDecoration(color: BaseColors.green.shade300),
           child: Column(children: <Widget>[
@@ -193,23 +193,39 @@ class _LoginPageState extends State<LoginPage> {
                                 const SizedBox(
                                   height: 10,
                                 ),
-                                RichText(
-                                  text: TextSpan(
-                                      text: "Belum memiliki akun?",
-                                      style: const TextStyle(
-                                        color: Colors.black,
+                                Center(
+                                  child: Row(
+                                    children: [
+                                      RichText(
+                                          text:
+                                              TextSpan(text: "              ")),
+                                      RichText(
+                                        text: TextSpan(
+                                          text: "Belum memiliki akun?",
+                                          style: const TextStyle(
+                                            color: Colors.black,
+                                          ),
+                                        ),
                                       ),
-                                      recognizer: TapGestureRecognizer()
-                                        ..onTap = () {
-                                          Navigator.popAndPushNamed(
-                                              context, "/register");
-                                        }),
-                                ),
+                                      RichText(
+                                          text: TextSpan(
+                                              text: " Daftar disini",
+                                              style: const TextStyle(
+                                                color: Colors.blue,
+                                              ),
+                                              recognizer: TapGestureRecognizer()
+                                                ..onTap = () {
+                                                  Navigator.popAndPushNamed(
+                                                      context, "/register");
+                                                })),
+                                    ],
+                                  ),
+                                )
                               ],
                             ),
                           ),
                         ])))),
           ]),
-        ));
+        )));
   }
 }
