@@ -22,7 +22,7 @@ class App extends StatelessWidget {
           ),
           debugShowCheckedModeBanner: false,
           //home: LoginPage(),
-          initialRoute: "/login",
+          initialRoute: "/",
           routes: {
             "/": (ctx) => const Home(),
             LoginPage.routeName: (ctx) => const LoginPage(),
