@@ -18,7 +18,7 @@ class MenuOption extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        width: 150,
+        width: 130,
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
         decoration: BoxDecoration(
             color: selected ? BaseColors.green[500] : Colors.grey[200],
