@@ -238,7 +238,7 @@ class _CreatePostState extends State<CreatePost> {
                                   const EdgeInsets.symmetric(
                                       horizontal: 24, vertical: 16)),
                               backgroundColor: MaterialStateProperty.all(
-                                  BaseColors.green[500])),
+                                  Color.fromRGBO(39, 182, 136, 1))),
                           onPressed: () {
                             if (_formKey.currentState!.validate() &&
                                 _type != null) {
