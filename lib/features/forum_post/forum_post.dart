@@ -5,7 +5,7 @@ import '../navigation/bottom_navbar.dart';
 import '../navigation/hamburger.dart';
 import '../navigation/verinvest_appbar.dart';
 import '../collections/create_post.dart';
-import 'fecth_forum.dart';
+import 'fetch_forum.dart';
 import 'forum.dart';
 
 class ForumPost extends StatelessWidget {
@@ -19,7 +19,7 @@ class ForumPost extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
-            children:[
+            children: [
               Navbar(),
               Center(child: Text("Forum")),
               Forum(),
@@ -27,7 +27,6 @@ class ForumPost extends StatelessWidget {
           ),
         ),
       ),
-      
     );
   }
 }
@@ -186,7 +185,6 @@ class _ForumState extends State<Forum> {
   void _submitForumMessage(String message) {
     // Send the forum message to a server to be stored in a database
     // ...
-    
 
     setState(() {
       _forumMessages.add(ForumMessage(message: message));
@@ -200,19 +198,19 @@ class _ForumState extends State<Forum> {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextField(
-             decoration: InputDecoration(hintText: 'Enter a forum message',
-    border: OutlineInputBorder(
-      borderSide: BorderSide(
-        color: Colors.black,
-        width: 1.0,
-        style: BorderStyle.solid,
-      ),
-    ),
-  ),
+            decoration: InputDecoration(
+              hintText: 'Enter a forum message',
+              border: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Colors.black,
+                  width: 1.0,
+                  style: BorderStyle.solid,
+                ),
+              ),
+            ),
             onSubmitted: (message) {
               if (message != null) {
                 _submitForumMessage(message);
-                
               }
             },
           ),
@@ -232,7 +230,6 @@ class ForumMessage extends StatefulWidget {
 
   const ForumMessage({this.message = ''}) : super();
 
-
   @override
   _ForumMessageState createState() => _ForumMessageState();
 }
@@ -242,13 +239,12 @@ class _ForumMessageState extends State<ForumMessage> {
 
   void _submitComment(String comment) {
     // Send the comment to a server to be stored in a database
-    
 
     setState(() {
       _comments.add(comment);
-      
     });
   }
+
   int _upvotes = 0;
 
   void _incrementUpvotes() {
@@ -262,36 +258,36 @@ class _ForumMessageState extends State<ForumMessage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(widget.message),Text('$_upvotes upvotes'),
-              IconButton(
-                icon: Icon(Icons.thumb_up),
-                onPressed: () {
-                  _incrementUpvotes();
-                }
-              ),
+        Text(widget.message),
+        Text('$_upvotes upvotes'),
+        IconButton(
+            icon: Icon(Icons.thumb_up),
+            onPressed: () {
+              _incrementUpvotes();
+            }),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-          child: TextField( decoration: InputDecoration(hintText: 'Enter a comment',
-    border: OutlineInputBorder(
-      borderSide: BorderSide(
-        color: Colors.black,
-        width: 1.0,
-        style: BorderStyle.solid,
-      ),
-    ),
-  ),
-            
+          child: TextField(
+            decoration: InputDecoration(
+              hintText: 'Enter a comment',
+              border: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Colors.black,
+                  width: 1.0,
+                  style: BorderStyle.solid,
+                ),
+              ),
+            ),
             onSubmitted: (comment) {
               if (comment != null) {
                 _submitComment(comment);
-                
+
                 Text('$_upvotes upvotes');
-              IconButton(
-                icon: Icon(Icons.thumb_up),
-                onPressed: () {
-                  _incrementUpvotes();
-                }
-              );
+                IconButton(
+                    icon: Icon(Icons.thumb_up),
+                    onPressed: () {
+                      _incrementUpvotes();
+                    });
               }
             },
           ),
@@ -301,11 +297,8 @@ class _ForumMessageState extends State<ForumMessage> {
             padding:
                 const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
             child: Text(comment),
-          ), 
-  
-
+          ),
       ],
-      
     );
   }
 }
