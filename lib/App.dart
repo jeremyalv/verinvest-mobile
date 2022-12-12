@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:pbp_django_auth/pbp_django_auth.dart';
 import './features/home/home.dart';
+import 'features/Auth/login.dart';
+import 'features/Auth/register.dart';
+import '../../core/services/auth_request.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -18,7 +20,14 @@ class App extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.green,
           ),
-          home: Home(),
+          debugShowCheckedModeBanner: false,
+          //home: LoginPage(),
+          initialRoute: "/login",
+          routes: {
+            "/": (ctx) => const Home(),
+            LoginPage.routeName: (ctx) => const LoginPage(),
+            RegisterPage.routeName: (ctx) => const RegisterPage(),
+          },
         ));
   }
 }
