@@ -239,7 +239,6 @@ class _EducationPostState extends State<EducationPost> {
                                               Text("${snapshot.data![index].fields.upvotes}",
                                                 style: const TextStyle(fontSize: 16.0),
                                               ),
-                                              Text("   "),
                                               Icon(Icons.visibility),
                                               Text("${snapshot.data![index].fields.viewers}",
                                                   style: const TextStyle(fontSize: 16.0),
