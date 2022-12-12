@@ -12,7 +12,7 @@
 ## Link Aplikasi Heroku
 [Verinvest Web App](https://verinvest.up.railway.app/)
 
-[Verinvest Mobile App - Coming Soon!](#)
+[Verinvest Mobile App - APK](https://github.com/jeremyalv/verinvest-mobile/releases/download/verinvest/Verinvest.apk)
 
 ## Latar Belakang
 Salah satu isu yang diangkat oleh G20, yang merupakan konferensi para pemimpin dunia, adalah Transformasi Digital. Menurut firma konsultansi teknologi Accenture, transformasi digital merupakan proses dimana organisasi menerapkan teknologi pada kegiatan operasional mereka untuk menggerakkan perubahan. Bila di maknai secara lebih luas, transformasi digital merupakan proses peningkatan efisiensi dan manfaat suatu proses yang sebelumnya terdominasi oleh metode-metode non-digital.
