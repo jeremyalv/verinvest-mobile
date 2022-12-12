@@ -1,7 +1,4 @@
-
 import 'dart:convert';
-import 'dart:html';
-import 'package:verinvest_mobile/features/forum_post/forum_post.dart';
 
 List<ForumPost> forumFromJson(String str) => List<ForumPost>.from(json.decode(str).map((x) => ForumPost.fromJson(x)));
 
