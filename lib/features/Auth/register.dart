@@ -340,8 +340,7 @@ class _RegisterScreenState extends State<RegisterPage> {
                                           (Set<MaterialState> states) {
                                     if (states
                                         .contains(MaterialState.pressed)) {
-                                      return const Color.fromRGBO(
-                                          204, 23, 40, 1);
+                                      return BaseColors.green.shade300;
                                     }
                                     return null;
                                   }),

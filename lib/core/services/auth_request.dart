@@ -48,12 +48,14 @@ class CookieRequest {
     loggedIn = false;
   }
 
+  Map datajson = {};
+
   Future<dynamic> login(String url, dynamic data) async {
     if (kIsWeb) {
       dynamic c = _client;
       c.withCredentials = true;
     }
-
+    print(data["username"]);
     http.Response response =
         await _client.post(Uri.parse(url), body: data, headers: headers);
 
@@ -61,12 +63,15 @@ class CookieRequest {
 
     if (response.statusCode == 200) {
       loggedIn = true;
-      username = json.decode(response.body)["username"];
+      username = json.decode(json.encode(response.body))["username"];
       persist("username", username!);
+      print("sukses");
     } else {
       loggedIn = false;
+      print(username);
+      print("gagal");
     }
-
+    json.decode(response.body);
     return json.decode(response.body); // Expects and returns JSON request body
   }
 

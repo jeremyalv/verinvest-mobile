@@ -149,7 +149,7 @@ class _LoginPageState extends State<LoginPage> {
                                               BaseColors.green.shade500),
                                       foregroundColor:
                                           MaterialStateProperty.all<Color>(
-                                              Color(0x98D0AC)),
+                                              Color(0xFF98D0AC)),
                                       overlayColor: MaterialStateProperty
                                           .resolveWith<Color?>(
                                               (Set<MaterialState> states) {
@@ -164,7 +164,7 @@ class _LoginPageState extends State<LoginPage> {
                                       if (_loginFormKey.currentState!
                                           .validate()) {
                                         final response = await request.login(
-                                            "https://verinvest.up.railway.app/flutter-auth/login",
+                                            "https://verinvest.up.railway.app/flutter-auth/login/",
                                             {
                                               'username': username,
                                               'password': password,
