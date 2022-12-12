@@ -4,7 +4,6 @@ import '../../../features/collections/models/post.dart';
 
 class CollectionsAPI {
   Future<List<Post>> fetchPosts() async {
-    // TODO replace
     const String endpoint =
         "https://verinvest.up.railway.app/collections/json/";
 
@@ -15,10 +14,6 @@ class CollectionsAPI {
     });
 
     var data = jsonDecode(utf8.decode(response.bodyBytes));
-
-    // TODO delete
-    print("\nDATA:\n");
-    print(data);
 
     // Convert JSON into Post object
     List<Post> collections = [];

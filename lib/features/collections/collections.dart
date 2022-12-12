@@ -30,12 +30,16 @@ class _CollectionsState extends State<Collections> {
 
   late int postsCount = 0;
   late String _query;
+  late bool userHasQuery;
+
+  // For sorting by category only
   late bool forumActive;
   late bool educationActive;
 
   @override
   void initState() {
     _query = "";
+    userHasQuery = false;
     forumActive = false;
     educationActive = false;
 
@@ -74,9 +78,11 @@ class _CollectionsState extends State<Collections> {
   void _queryHandler(String query) {
     setState(() {
       _query = query;
+      userHasQuery = true;
     });
   }
 
+  // Sorting in form of filter
   void toggleForumFilter() {
     setState(() {
       forumActive = !forumActive;
@@ -88,32 +94,6 @@ class _CollectionsState extends State<Collections> {
       educationActive = !educationActive;
     });
   }
-
-  Post forumDummy = Post(
-      // pk: 1,
-      postType: "forum",
-      authorUsername: "Silverman Sachs",
-      dateCreated: DateTime.now(),
-      title:
-          "Why \$GOTO is crashing, and Indonesia's tech sector is up for a wild ride in 2023. Lorem ipsum dolor sit amet, lorem ipsum dolor sit amet.",
-      content:
-          "Here's 3 reasons why I think \$GOTO is crashing! Here's 3 reasons why I think \$GOTO is crashing! Here's 3 reasons why I think \$GOTO is crashing! Here's 3 reasons why I think \$GOTO is crashing! Here's 3 reasons why I think \$GOTO is crashing! Here's 3 reasons why I think \$GOTO is crashing! Here's 3 reasons why I think \$GOTO is crashing! Here's 3 reasons why I think \$GOTO is crashing! Here's 3 reasons why I think \$GOTO is crashing! Here's 3 reasons why I think \$GOTO is crashing! Here's 3 reasons why I think \$GOTO is crashing! Here's 3 reasons why I think \$GOTO is crashing! Here's 3 reasons why I think \$GOTO is crashing! Here's 3 reasons why I think \$GOTO is crashing! Here's 3 reasons why I think \$GOTO is crashing! Here's 3 reasons why I think \$GOTO is crashing! Here's 3 reasons why I think \$GOTO is crashing!",
-      upvotes: 3,
-      viewers: 50,
-      commentsCount: 0);
-
-  Post educationDummy = Post(
-    // pk: 2,
-    postType: "education",
-    authorUsername: "Debit Suisse",
-    dateCreated: DateTime.now(),
-    title: "Why \$BUKA is the best stock!",
-    content:
-        "Forget \$GOTO, buy your \$BUKA stocks instead! Forget \$GOTO, buy your \$BUKA stocks instead! Forget \$GOTO, buy your \$BUKA stocks instead! Forget \$GOTO, buy your \$BUKA stocks instead! Forget \$GOTO, buy your \$BUKA stocks instead! Forget \$GOTO, buy your \$BUKA stocks instead! Forget \$GOTO, buy your \$BUKA stocks instead! Forget \$GOTO, buy your \$BUKA stocks instead! Forget \$GOTO, buy your \$BUKA stocks instead! Forget \$GOTO, buy your \$BUKA stocks instead! Forget \$GOTO, buy your \$BUKA stocks instead!",
-    upvotes: 90,
-    viewers: 5200,
-    commentsCount: 13,
-  );
 
   @override
   Widget build(BuildContext context) {
@@ -159,8 +139,6 @@ class _CollectionsState extends State<Collections> {
                       ),
                     ),
                   ),
-                  // TODO delete
-                  Text("Query input: $_query"),
                   Padding(
                     padding: const EdgeInsets.only(top: 12),
                     child: Text(
@@ -232,9 +210,85 @@ class _CollectionsState extends State<Collections> {
                                         const NeverScrollableScrollPhysics(),
                                     shrinkWrap: true,
                                     itemCount: snapshot.data.length,
-                                    itemBuilder: (context, index) => PostCard(
-                                          post: snapshot.data[index],
-                                        ));
+                                    itemBuilder: (context, index) {
+                                      Post post = snapshot.data[index];
+                                      String postType = post.postType;
+
+                                      // Get title and query cleaned data
+                                      String titleLowercased =
+                                          post.title.toLowerCase().trim();
+                                      String queryLowercased =
+                                          _query.toLowerCase().trim();
+                                      // Filter logic
+                                      if (forumActive && !educationActive) {
+                                        // Filter logic (2) - by type
+                                        if (postType == "forum") {
+                                          // Query logic - by user query, if any
+
+                                          // If no query, return the filtered item
+                                          if (!userHasQuery) {
+                                            return PostCard(
+                                              post: post,
+                                            );
+                                          } else {
+                                            // If has query, filter by query
+                                            if (titleLowercased
+                                                .contains(queryLowercased)) {
+                                              return PostCard(
+                                                post: post,
+                                              );
+                                            } else {
+                                              return Container();
+                                            }
+                                          }
+                                        } else {
+                                          // to avoid errors
+                                          return Container();
+                                        }
+                                      } else if (!forumActive &&
+                                          educationActive) {
+                                        if (postType == "education") {
+                                          // If no query, return the filtered item
+                                          if (!userHasQuery) {
+                                            return PostCard(
+                                              post: post,
+                                            );
+                                          } else {
+                                            // If has query, filter by query
+                                            if (titleLowercased
+                                                .contains(queryLowercased)) {
+                                              return PostCard(
+                                                post: post,
+                                              );
+                                            } else {
+                                              return Container();
+                                            }
+                                          }
+                                        } else {
+                                          // If no query, return the filtered item
+                                          if (!userHasQuery) {
+                                            return PostCard(
+                                              post: post,
+                                            );
+                                          } else {
+                                            // If has query, filter by query
+                                            if (titleLowercased
+                                                .contains(queryLowercased)) {
+                                              return PostCard(
+                                                post: post,
+                                              );
+                                            } else {
+                                              return Container();
+                                            }
+                                          }
+                                        }
+                                      } else {
+                                        // Else case
+                                        return PostCard(
+                                          post: post,
+                                        );
+                                      }
+                                    });
                               }
                             }
                           }),
